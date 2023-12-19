@@ -1,22 +1,28 @@
 import { styled } from "baseui";
 import { FileUploader } from "baseui/file-uploader";
+import { useAtom } from "jotai";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { videoAtom } from "../atoms/video";
 const Centered = styled("div", {
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
 	margin: "auto",
-	height: "100svh",
+	height: "90svh",
 	width: "100wh",
 });
 
 export default function Drop() {
 	let navigate = useNavigate();
+	const [, setVideo] = useAtom(videoAtom);
 
 	const handleFileDrop = (acceptedFiles, rejectedFiles) => {
 		// handle file upload...
-		console.log(acceptedFiles, rejectedFiles);
+
+		// setVideo(acceptedFiles)
+		acceptedFiles && setVideo(acceptedFiles[0]);
+		console.log(acceptedFiles[0]);
 
 		// Redirect to the next page
 		navigate("/preview");
